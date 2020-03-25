@@ -14,13 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::middleware(['jwt.verify'])->group(function(){
+//     Route::get('user', 'UserController@getAuthenticatedUser'); 
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
 
+Route::get('iklan','IklanController@index');
+Route::post('iklan','IklanController@create');
+Route::get('/iklan/{id}','IklanController@detail');
+Route::put('/iklan/{id}','IklanController@update');
+Route::delete('/iklan/{id}','IklanController@delete');
 
-Route::middleware(['jwt.verify'])->group(function(){
-    Route::get('user', 'UserController@getAuthenticatedUser');
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });
